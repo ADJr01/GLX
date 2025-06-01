@@ -1,4 +1,5 @@
-﻿#include "Glx.h"
+﻿#pragma once
+#include "Glx.h"
 #include <iostream>
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
