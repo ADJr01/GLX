@@ -107,7 +107,7 @@ void addPostLaunchProcedure(Func func, Args... args);
 bool launch();
 ```
 
-* `launch()`: Finalizes the setup and starts the glx system. All queued `onTick` functions are called each frame. Any `addPostLaunchProcedure` callbacks are called once after setup.
+* `launch()`: Finalizes the setup and starts the glx system. All queued `onTick` functions are called each frame. Any `addPostLaunchProcedure` callbacks are called once after setup. OpenGl context will be initialized on this stage.
 
 ---
 
