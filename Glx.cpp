@@ -118,7 +118,7 @@ bool GLX::launch(){
         glewExperimental=this->gl_experimental?GL_TRUE:GL_FALSE;
         if (glewInit()!=GLEW_OK)
         {
-            std::cout << "Failed To Init GLEW:: Error occured when initializing GLEW.\n";
+            std::cout << "GLX Failed To Init GLEW:: Error occured when initializing GLEW.\n";
             glfwDestroyWindow(this->window);
             glfwTerminate();
             return false;
