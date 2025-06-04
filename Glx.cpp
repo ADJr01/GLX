@@ -80,7 +80,9 @@ void GLX::destroy(){
     this->tasklist.clear();
     this->postLaunchQueue.clear();
     this->is_running=false;
+    glfwMakeContextCurrent(nullptr);
     glfwDestroyWindow(this->window);
+    this->window=nullptr;
     glfwTerminate();
 }
 void GLX::inf(){
