@@ -1,12 +1,12 @@
 # 🌐 GLX - A Modern OpenGL Context Handler for C++
 
 GLX is a lightweight wrapper around **GLFW** and **GLEW** that simplifies the process of creating and managing an OpenGL context. Built with modern C++ practices, it allows for quick bootstrapping of graphics applications with minimal boilerplate.
-
+#### 🎯 GLX Follows Modern RAII-based Resource Management techniques
 ---
 
 ## 📦 Features
 
-* Simple and consistent API for OpenGL context setup.
+* Simple and consistent Cross-Platform API for OpenGL context setup.
 * Easy-to-use event hooks (`onTick`, `addPostLaunchProcedure`).
 * Configurable window dimensions, title, focus, and OpenGL versions.
 * Smart encapsulation of GLFW and GLEW logic.
@@ -25,7 +25,6 @@ GLX is a lightweight wrapper around **GLFW** and **GLEW** that simplifies the pr
 ## 💠 Class: `GLX`
 
 This is the core class that handles the OpenGL context and window system. Below is a documentation of each method grouped by functionality.
-
 ---
 
 ### 🧱 Constructor & Destructor
@@ -36,7 +35,7 @@ GLX();
 ```
 
 * **GLX()**: Initializes internal states and prepares for context setup. Calling the Constructor will initialize `GLFW`
-* **\~GLX()**: Gracefully destroys the context and releases resources.
+* **\~GLX()**: Destroys the context and releases resources.
 
 ---
 
@@ -164,4 +163,11 @@ int main(){
 
 ```
 
+## 🚧 Features Under Development
+### 🛠️ GLX Program Builder 🚧: 
+
+A utility designed to simplify shader and program handling tool:
+
+- 🎨 Automatic creation and linking of OpenGL programs  
+- 📦 Tooling for loading, compiling, and attaching **GLSL shaders**  
 
