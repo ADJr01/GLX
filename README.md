@@ -1,6 +1,6 @@
 # 🌐 GLX - A Modern OpenGL Context Handler for C++
 
-GLX is a lightweight wrapper around **GLFW** and **GLEW** that simplifies the process of creating and managing an OpenGL context. Built with modern C++ practices, it allows for quick bootstrapping of graphics applications with minimal boilerplate.
+GLX is a lightweight wrapper around **GLFW** and **GLEW** that simplifies the process of creating and managing an OpenGL context Easily. Built with modern C++ practices, it allows for quick bootstrapping of graphics applications with minimal boilerplate.
 #### 🎯 GLX Follows Modern RAII-based Resource Management techniques
 ---
 
