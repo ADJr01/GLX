@@ -35,7 +35,7 @@ GLX();
 ```
 
 * **GLX()**: Initializes internal states and prepares for context setup. Calling the Constructor will initialize `GLFW`
-* **\~GLX()**: Destroys the context and releases resources.
+* **\~GLX()**: Destroys the context carefully and releases resources.
 
 ---
 
