@@ -137,11 +137,11 @@ int main(){
     gl->setVersionMajor(3); //default 4
     gl->setVersionMinor(3);//default 1
     gl->setAspectRatio(16,9); //default 16:9
-    gl->setWindowWidth(static_cast<int>(gl->glx_primary_monitor_width()*0.8));
-    gl->setWindowHeight(static_cast<int>(gl->glx_primary_monitor_height()*0.8));
+    gl->setWindowWidth(static_cast<int>(gl->glx_primary_monitor_width())); //default full width
+    gl->setWindowHeight(static_cast<int>(gl->glx_primary_monitor_height())); //default full height
     gl->setWindowTitle("GLX Window");
-    gl->setIsForwardCompatable(true);
-    gl->setFocusOnInit(true);
+    gl->setIsForwardCompatable(true); //default true
+    gl->setFocusOnInit(true); ////default false
     gl->addPostLaunchProcedure([] {
            //attach functionalities those need to run before tick start
         });
