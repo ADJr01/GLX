@@ -134,9 +134,9 @@ void onTick(Func func, Args... args);
 int main(){
  
     auto gl =std::make_unique<GLX>();
-    gl->setVersionMajor(3);
-    gl->setVersionMinor(3);
-    gl->setAspectRatio(16,9);
+    gl->setVersionMajor(3); //default 4
+    gl->setVersionMinor(3);//default 1
+    gl->setAspectRatio(16,9); //default 16:9
     gl->setWindowWidth(static_cast<int>(gl->glx_primary_monitor_width()*0.8));
     gl->setWindowHeight(static_cast<int>(gl->glx_primary_monitor_height()*0.8));
     gl->setWindowTitle("GLX Window");
