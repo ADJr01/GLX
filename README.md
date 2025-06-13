@@ -169,5 +169,6 @@ int main(){
 A utility designed to simplify shader and program handling tool:
 
 - 🎨 Automatic creation and linking of OpenGL programs  
-- 📦 Tooling for loading, compiling, and attaching **GLSL shaders**  
+- 📦 Tooling for loading, compiling, and attaching **GLSL shaders**
+- Vulkan Support
 
