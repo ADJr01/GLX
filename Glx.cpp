@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "Glx.h"
+﻿#include "Glx.h"
 #include <iostream>
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
@@ -32,6 +31,7 @@ GLX::GLX(){
     this->gl_experimental=true;
     this->WindowScreen.full_width= mode->width;
     this->WindowScreen.full_height= mode->height;
+    this->ShaderTool();
     
 }
 GLX::~GLX(){
@@ -183,4 +183,6 @@ bool GLX::launch(){
 }
 
 
-
+GlslX GLX::ShaderTool() {
+    return this->shaderTool;
+}

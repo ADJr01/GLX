@@ -6,6 +6,8 @@
 #include<functional>
 #include<vector>
 
+#include "GLSLX/GlslX.h"
+
 struct Ratio{
     int numerator;
     int denumerator;
@@ -32,6 +34,8 @@ private:
     int Window_Width, Window_Height, frame_buffer_width, frame_buffer_height;
     std::vector<std::function<void()>> tasklist;
     std::vector<std::function<void()>> postLaunchQueue;
+    //shader tool
+    GlslX shaderTool;
     void destroy();
     public:
     GLX();
@@ -53,6 +57,7 @@ private:
     void  onTick(Func func, Args... args) {
         this->tasklist.push_back(std::bind(func, args...));
     }
+    GlslX ShaderTool();
     bool launch();
     template<typename Func, typename... Args>
     void  addPostLaunchProcedure(Func func, Args... args) {
