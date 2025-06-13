@@ -1,4 +1,6 @@
-﻿#include <string>
+﻿#ifndef GLSLX_H
+#define GLSLX_H
+#include <string>
 
 class GlslX{
 private:
@@ -34,3 +36,4 @@ public:
 
     
 };
+#endif // GLSLX_H

@@ -1,5 +1,4 @@
-﻿#pragma once
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <GL/glew.h>
 #include <sstream>
@@ -7,7 +6,7 @@
 
 std::string parseShader(const std::string& filepath) {
     std::ifstream file(filepath, std::ios::in | std::ios::binary);
-    if (!file) {
+    if (!file.is_open()) {
         throw std::invalid_argument("GLX::Shader-Tool::Invalid File Ref:" + filepath);
     }
 
@@ -124,5 +123,11 @@ bool GlslX::buildProgram() {
     this->BuildStatus = 1;
     return this->BuildStatus;
 }
+
+unsigned int GlslX::getProgram() {
+    if (this->BuildStatus==1)return this->program;
+    throw std::runtime_error("GLX::Shader-Tool::Build is not ready yet");
+}
+
 
 
