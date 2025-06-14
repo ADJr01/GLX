@@ -31,7 +31,6 @@ GLX::GLX(){
     this->gl_experimental=true;
     this->WindowScreen.full_width= mode->width;
     this->WindowScreen.full_height= mode->height;
-    this->ShaderTool();
     
 }
 GLX::~GLX(){
@@ -77,6 +76,7 @@ void GLX::setAspectRatio(int nume, int denume){
 
 
 void GLX::destroy(){
+    delete this->shaderTool;
     this->tasklist.clear();
     this->postLaunchQueue.clear();
     this->is_running=false;
@@ -147,17 +147,9 @@ bool GLX::launch(){
                 try
                 {
                     task();
-                }catch (...){
-                    try{
-                        task();
-                    }catch (...){
-                        std::cout<<"GLX:: onTick error\n";
-                        err = glGetError();
-                        if (err != GL_NO_ERROR)
-                        {
-                            std::cout<<"Open GL error"<<err<<"\n";
-                        }
-                    }
+                }catch (const std::exception& e){
+                    auto what = e.what();
+                    std::cerr<<"GLX::onTick Error:"<<what<<"\n";
                 }
             }
             glfwSwapBuffers(this->window);
@@ -180,6 +172,6 @@ bool GLX::launch(){
 }
 
 
-GlslX GLX::ShaderTool() {
-    return this->shaderTool;
+GlslX& GLX::ShaderTool() const {
+    return *this->shaderTool;
 }

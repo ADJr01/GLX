@@ -35,7 +35,7 @@ private:
     std::vector<std::function<void()>> tasklist;
     std::vector<std::function<void()>> postLaunchQueue;
     //shader tool
-    GlslX shaderTool;
+    GlslX* shaderTool = new GlslX();
     void destroy();
     public:
     GLX();
@@ -57,7 +57,7 @@ private:
     void  onTick(Func func, Args... args) {
         this->tasklist.push_back(std::bind(func, args...));
     }
-    GlslX ShaderTool();
+    GlslX& ShaderTool() const;
     bool launch();
     template<typename Func, typename... Args>
     void  addPostLaunchProcedure(Func func, Args... args) {

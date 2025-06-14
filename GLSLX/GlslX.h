@@ -5,8 +5,8 @@
 class GlslX{
 private:
     unsigned int program;
-    unsigned int vertexShader;
-    unsigned int fragmentShader;
+    unsigned int vertexShader{};
+    unsigned int fragmentShader{};
     std::string vertexSource;
     std::string fragmentSource;
     std::string geometrySource;
@@ -31,7 +31,11 @@ public:
     bool deleteProgram();
     bool buildProgram();
     bool isCompiled();
-    unsigned int getProgram();
+    void logVertexShader() const;
+    void logFragmentShader() const;
+    void useProgram() const;
+    unsigned int& getProgram();
+    bool isBuildReady() const;
     std::string& getError();
 
     

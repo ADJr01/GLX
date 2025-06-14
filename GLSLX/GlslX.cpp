@@ -6,7 +6,7 @@
 
 std::string parseShader(const std::string& filepath) {
     std::ifstream file(filepath, std::ios::in | std::ios::binary);
-    if (!file.is_open()) {
+    if (!file.is_open() || !file) {
         throw std::invalid_argument("GLX::Shader-Tool::Invalid File Ref:" + filepath);
     }
 
@@ -18,6 +18,11 @@ std::string parseShader(const std::string& filepath) {
 
 }
 
+
+
+
+
+
 GlslX::GlslX() {
     this->CompilationStatus = 0;
     this->BuildStatus = 0;
@@ -27,10 +32,8 @@ GlslX::GlslX() {
     this->program=0;
 }
 GlslX::~GlslX() {
-    if (this->CompilationStatus != 0) {
-        glDeleteShader(this->FragShader);
-        glDeleteShader(this->VertShader);
-        glDeleteProgram(this->program);
+    if (this->CompilationStatus != 0 || this->isBuildReady()) {
+        this->deleteProgram();
         this->CompilationStatus = 0;
         this->BuildStatus = 0;
     }
@@ -46,15 +49,19 @@ bool GlslX::setVertexShaderPath(std::string path) {
     return true;
 }
 bool GlslX::deleteFragmentShader() {
-    if (this->fragmentShader) {
+    if (this->fragmentShader && !this->fragmentSource.empty()) {
         glDeleteShader(this->fragmentShader);
+        this->fragmentShader=0;
+        this->fragmentSource="";
     }
     return true;
 }
 
 bool GlslX::deleteVertexShader() {
-    if (this->vertexShader) {
+    if (this->vertexShader && !this->vertexSource.empty()) {
         glDeleteShader(this->vertexShader);
+        this->vertexShader=0;
+        this->vertexSource="";
     }
     return true;
 }
@@ -64,9 +71,19 @@ std::string& GlslX::getError() {
 }
 bool GlslX::deleteProgram() {
     if (this->program) {
+        this->deleteFragmentShader();
+        this->deleteVertexShader();
         glDeleteProgram(this->program);
+        this->CompilationStatus = 0;
+        this->BuildStatus = 0;
     }
     return true;
+}
+void GlslX::logVertexShader() const {
+    std::cout<<this->vertexSource<<"\n";
+}
+void GlslX::logFragmentShader() const {
+    std::cout<<this->vertexSource<<"\n";
 }
 
 void GlslX::CompileShader(unsigned int shader_type) {
@@ -108,8 +125,9 @@ void GlslX::CompileShader(unsigned int shader_type) {
 
 bool GlslX::buildProgram() {
     if (this->BuildStatus==true)return this->BuildStatus;
-    if (this->fragmentSource.length()<1 || this->vertexSource.length()<1) {
+    if (this->fragmentSource.empty() || this->vertexSource.empty()) {
         this->ErrorLog = "GLX::Shader-Tool::Empty-Src is not acceptable\n";
+        this->BuildStatus=0;
         throw std::invalid_argument(this->getError());
     }
     this->program=glCreateProgram();
@@ -124,10 +142,22 @@ bool GlslX::buildProgram() {
     return this->BuildStatus;
 }
 
-unsigned int GlslX::getProgram() {
-    if (this->BuildStatus==1)return this->program;
-    throw std::runtime_error("GLX::Shader-Tool::Build is not ready yet");
+void GlslX::useProgram() const {
+    if (this->isBuildReady()) {
+        glUseProgram(this->program);
+        return;
+    }
+    throw std::runtime_error("GLX::Shader-Tool::Build is not Ready to Use");
+}
+unsigned int& GlslX::getProgram() {
+    if (this->isBuildReady()) {
+        return this->program;
+    }
+    throw std::runtime_error("GLX::Shader-Tool::Build is not Ready");
 }
 
+bool GlslX::isBuildReady() const {
+    return this->BuildStatus==1;
+}
 
 
