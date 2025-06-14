@@ -97,7 +97,7 @@ void GlslX::CompileShader(unsigned int shader_type) {
     glCompileShader(shader_program);
     GLint result = 0;
     glGetShaderiv(shader_program,GL_COMPILE_STATUS,&result);
-    if (!result)
+    if (result==GL_FALSE)
     {
         int len = 0;
         glGetShaderiv(shader_program,GL_INFO_LOG_LENGTH,&len);
@@ -142,13 +142,7 @@ bool GlslX::buildProgram() {
     return this->BuildStatus;
 }
 
-void GlslX::useProgram() const {
-    if (this->isBuildReady()) {
-        glUseProgram(this->program);
-        return;
-    }
-    throw std::runtime_error("GLX::Shader-Tool::Build is not Ready to Use");
-}
+
 unsigned int& GlslX::getProgram() {
     if (this->isBuildReady()) {
         return this->program;

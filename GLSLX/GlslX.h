@@ -33,8 +33,7 @@ public:
     bool isCompiled();
     void logVertexShader() const;
     void logFragmentShader() const;
-    void useProgram() const;
-    unsigned int& getProgram();
+    unsigned int& getProgram() ;
     bool isBuildReady() const;
     std::string& getError();
 
