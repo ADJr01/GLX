@@ -76,10 +76,13 @@ void GLX::setAspectRatio(int nume, int denume){
 
 
 void GLX::destroy(){
+    delete this->shaderTool;
     this->tasklist.clear();
     this->postLaunchQueue.clear();
     this->is_running=false;
+    glfwMakeContextCurrent(nullptr);
     glfwDestroyWindow(this->window);
+    this->window=nullptr;
     glfwTerminate();
 }
 void GLX::inf(){
@@ -117,7 +120,7 @@ bool GLX::launch(){
         glewExperimental=this->gl_experimental?GL_TRUE:GL_FALSE;
         if (glewInit()!=GLEW_OK)
         {
-            std::cout << "Failed To Init GLEW:: Error occured when initializing GLEW.\n";
+            std::cerr << "GLX Failed To Init GLEW:: Error occured when initializing GLEW.\n";
             glfwDestroyWindow(this->window);
             glfwTerminate();
             return false;
@@ -131,12 +134,9 @@ bool GLX::launch(){
             try
             {
                 task();
-            }catch (...){
-                std::cout<<"post launch queue error\n";
-                err = glGetError();
-                if (err != GL_NO_ERROR){
-                    std::cout<<"Open GL error"<<err<<"\n";
-                }
+            }catch (const std::exception& e){
+                auto what = e.what();
+                std::cerr<<"GLX::Post Launch Queue Error:"<<what<<"\n";
             }
         }
         while (!glfwWindowShouldClose(this->window))
@@ -147,17 +147,9 @@ bool GLX::launch(){
                 try
                 {
                     task();
-                }catch (...){
-                    try{
-                        task();
-                    }catch (...){
-                        std::cout<<"GLX:: onTick error\n";
-                        err = glGetError();
-                        if (err != GL_NO_ERROR)
-                        {
-                            std::cout<<"Open GL error"<<err<<"\n";
-                        }
-                    }
+                }catch (const std::exception& e){
+                    auto what = e.what();
+                    std::cerr<<"GLX::onTick Error:"<<what<<"\n";
                 }
             }
             glfwSwapBuffers(this->window);
@@ -180,4 +172,6 @@ bool GLX::launch(){
 }
 
 
-
+GlslX& GLX::ShaderTool() const {
+    return *this->shaderTool;
+}
