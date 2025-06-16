@@ -26,6 +26,8 @@ public:
     ~GlslX();
     bool setFragmentShaderPath(std::string path);
     bool setVertexShaderPath(std::string path);
+    bool setFragmentShaderSource(std::string source);
+    bool setVertexShaderSource(std::string source);
     bool deleteFragmentShader();
     bool deleteVertexShader();
     bool deleteProgram();
