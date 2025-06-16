@@ -1,28 +1,35 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <GL/glew.h>
-#include <sstream>
+#include <utility>
 #include "GlslX.h"
 
-std::string parseShader(const std::string& filepath) {
-    std::ifstream file(filepath, std::ios::in | std::ios::binary);
-    if (!file.is_open() || !file) {
-        throw std::invalid_argument("GLX::Shader-Tool::Invalid File Ref:" + filepath);
+std::string parseShader(const char* filename) {
+    FILE* file = fopen(filename, "rb");
+    if (!file) {
+        throw std::runtime_error("Failed to open file");
     }
-
-    std::ostringstream buffer;
-    buffer << file.rdbuf();
-    std::string source =  buffer.str();
-    file.close();
-    return source;
-
+    if (fseek(file, 0, SEEK_END) != 0) {
+        fclose(file);
+        throw std::runtime_error("GLX::Shader-Tool::Failed to seek to end of file");
+    }
+    long size = ftell(file);
+    if (size == -1) {
+        fclose(file);
+        throw std::runtime_error("GLX::Shader-Tool::Failed to get file size");
+    }
+    if (fseek(file, 0, SEEK_SET) != 0) {
+        fclose(file);
+        throw std::runtime_error("GLX::Shader-Tool::Failed to seek to beginning of file");
+    }
+    std::string buffer(size, '\0');
+    size_t read_size = fread(&buffer[0], 1, size, file);
+    fclose(file);
+    if (read_size != static_cast<size_t>(size)) {
+        throw std::runtime_error("GLX::Shader-Tool::Failed to read entire file");
+    }
+    return buffer;
 }
-
-
-
-
-
-
 GlslX::GlslX() {
     this->CompilationStatus = 0;
     this->BuildStatus = 0;
@@ -40,12 +47,33 @@ GlslX::~GlslX() {
 }
 
 bool GlslX::setFragmentShaderPath(std::string path) {
-    this->fragmentSource = parseShader(path);
+    try {
+        return this->setFragmentShaderSource(parseShader(path.c_str()));
+    }catch (std::exception& e) {
+        this->ErrorLog = e.what();
+        std::cerr << this->ErrorLog << std::endl;
+        return false;
+    }
+}
+bool GlslX::setFragmentShaderSource(std::string source) {
+    this->fragmentSource = std::move(source);
     return true;
 }
 
+
 bool GlslX::setVertexShaderPath(std::string path) {
-    this->vertexSource = parseShader(path);
+    try {
+        return this->setVertexShaderSource(parseShader(path.c_str()));
+    }catch (std::exception& e) {
+        this->ErrorLog = e.what();
+        std::cerr << this->ErrorLog << std::endl;
+        return false;
+    }
+
+}
+
+bool GlslX::setVertexShaderSource(std::string source) {
+    this->vertexSource = std::move(source);
     return true;
 }
 bool GlslX::deleteFragmentShader() {
@@ -124,6 +152,7 @@ void GlslX::CompileShader(unsigned int shader_type) {
 
 
 bool GlslX::buildProgram() {
+    if (!this->ErrorLog.empty()) throw std::runtime_error("GLX::Shader-Tool::Cannot Build Program With ErrorLog:"+this->ErrorLog);
     if (this->BuildStatus==true)return this->BuildStatus;
     if (this->fragmentSource.empty() || this->vertexSource.empty()) {
         this->ErrorLog = "GLX::Shader-Tool::Empty-Src is not acceptable\n";
