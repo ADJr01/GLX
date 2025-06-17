@@ -162,6 +162,18 @@ int main(){
 }
 
 ```
+## 🔧 Example of Using ShaderTool from GLX library
+```cpp
+   int main(){
+     std::string frag_src = "path/to/you/fragment.shader"; //fragment shader source
+     std::string vert_src = "path/to/you/vertex.shader"; //vertex shader source
+     glx.ShaderTool().setVertexShaderPath(vert_src);
+     glx.ShaderTool().setFragmentShaderPath(frag_src);
+     glx.ShaderTool().buildProgram(); // build program does all the thing for us. Compiling and linking the shader program
+     glx.ShaderTool().getProgram(); //to get the Program we'll use this function
+     return 0;
+   }
+```
 
 ## 🚧 Features Under Development
 ### 🛠️ GLX Program Builder 🚧: 
