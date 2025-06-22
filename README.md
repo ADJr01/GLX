@@ -123,7 +123,33 @@ void onTick(Func func, Args... args);
 
 
 
-## 🔧 Example Usage
+## 🔧 Example Usage: Simpleset Way:
+```cpp
+#include<iostream>
+#include<memory>
+#include "glx/Glx.h"
+
+int main(){
+    GLX glx;
+    glx.setWindowTitle("My Window");
+    glx.addPostLaunchProcedure([](){
+       //attach functionalities those need to run before tick start
+
+    });
+    gl->onTick([=]()
+    {
+      //tick: run tasks need to execute on each frame
+
+
+    });
+
+    gl->launch(); // will trigger the system
+    return 0;
+
+}
+
+```
+
 
 ```cpp
 #include<iostream>
