@@ -204,8 +204,5 @@ int main(){
 ```
 
 ## 🚧 Features Under Development
-### 🛠️ GLX Program Builder 🚧: 
-
-A utility designed to simplify shader and program handling tool:
 - Vulkan Support
 
