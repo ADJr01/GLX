@@ -123,7 +123,7 @@ void onTick(Func func, Args... args);
 
 
 
-## 🔧 Example Usage: Simpleset Way:
+## 🔧 Example Usage in Simpleset Way:
 ```cpp
 #include<iostream>
 #include<memory>
@@ -149,7 +149,7 @@ int main(){
 }
 
 ```
-
+## 🔧 Example Usage With Configuration:
 
 ```cpp
 #include<iostream>
