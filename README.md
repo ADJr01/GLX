@@ -8,6 +8,7 @@ GLX is a lightweight wrapper around **GLFW** and **GLEW** that simplifies the pr
 
 * Simple and consistent Cross-Platform API for OpenGL context setup.
 * Easy-to-use event hooks (`onTick`, `addPostLaunchProcedure`).
+* GLX provides `ShaderTool` for compiling and linking shader program.
 * Configurable window dimensions, title, focus, and OpenGL versions.
 * Smart encapsulation of GLFW and GLEW logic.
 * Minimal, maintainable, and extendable structure.
@@ -188,9 +189,10 @@ int main(){
 }
 
 ```
-## 🔧 Example of Using ShaderTool from GLX library
+## 🔧 Example of Using `ShaderTool` from GLX library
 ```cpp
    int main(){
+     //... Initialize glx first
      std::string frag_src = "path/to/your/fragment.shader"; //fragment shader source
      std::string vert_src = "path/to/your/vertex.shader"; //vertex shader source
      glx.ShaderTool().setVertexShaderPath(vert_src);
