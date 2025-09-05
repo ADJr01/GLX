@@ -137,14 +137,14 @@ int main(){
        //attach functionalities those need to run before tick start
 
     });
-    gl->onTick([=]()
+    glx.onTick([=]()
     {
       //tick: run tasks need to execute on each frame
 
 
     });
 
-    gl->launch(); // will trigger the system
+    glx.launch(); // will trigger the system
     return 0;
 
 }
