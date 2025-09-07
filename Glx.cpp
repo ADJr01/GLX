@@ -142,6 +142,9 @@ bool GLX::launch(){
         while (!glfwWindowShouldClose(this->window))
         {
             glfwPollEvents();
+            if (glfwGetKey(this->window,GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(this->window,GLFW_KEY_END) == GLFW_PRESS) {
+                glfwSetWindowShouldClose(this->window,GLFW_TRUE);
+            }
             for (auto& task:this->tasklist)
             {
                 try
