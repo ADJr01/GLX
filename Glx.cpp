@@ -7,7 +7,7 @@
 
 GLX::GLX(){
     if (!glfwInit()) {
-        std::cout << "Failed To Init GLX:: Error occured when initializing glfw.";
+        std::cout << "Failed To Init GLX:: Error occurred when initializing glfw.";
         glfwTerminate();
     }
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
@@ -161,7 +161,7 @@ bool GLX::launch(){
         return true;
     }catch (...)
     {
-        
+
         this->is_running=false;
         glfwTerminate();
         std::cout << "Failed To launch GLX.\n";
