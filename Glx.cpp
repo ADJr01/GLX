@@ -107,7 +107,7 @@ bool GLX::launch(){
         glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT,this->is_forward_compatable?GLFW_TRUE:GLFW_FALSE);
         //create GLFW Window
-        this->window = glfwCreateWindow(this->Window_Width,this->Window_Height,this->Window_title.c_str(),NULL,NULL);
+        this->window = glfwCreateWindow(this->Window_Width,this->Window_Height,this->Window_title.c_str(),nullptr,nullptr);
         if (!this->window)
         {
             std::cout << "Failed To Init GLX:: Error occured when initializing Window.\n";
