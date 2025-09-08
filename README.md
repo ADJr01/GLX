@@ -127,7 +127,6 @@ void onTick(Func func, Args... args);
 ## 🔧 Example Usage in Simpleset Way:
 ```cpp
 #include<iostream>
-#include<memory>
 #include "glx/Glx.h"
 
 int main(){
