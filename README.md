@@ -132,11 +132,11 @@ void onTick(Func func, Args... args);
 int main(){
     GLX glx;
     glx.setWindowTitle("My Window");
-    glx.addPostLaunchProcedure([](){
+    glx.addPostLaunchProcedure([&](){
        //attach functionalities those need to run before tick start
 
     });
-    glx.onTick([=]()
+    glx.onTick([&]()
     {
       //tick: run tasks need to execute on each frame
 
@@ -168,12 +168,12 @@ int main(){
     gl->setWindowTitle("GLX Window");
     gl->setIsForwardCompatable(true); //default true
     gl->setFocusOnInit(true); ////default false
-    gl->addPostLaunchProcedure([] {
+    gl->addPostLaunchProcedure([&] {
            //attach functionalities those need to run before tick start
         });
 
     
-    gl->onTick([=]()
+    gl->onTick([&]()
     {
             //tick: run tasks need to execute on each frame
         glClearColor(0.0f,0.0f,0.0f,1.f);
